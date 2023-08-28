@@ -1,0 +1,269 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://schema.JsonSchema42.org/jns42-intermediate-b/schema.json",
+	"title": "JsonSchema42 intermediate schema",
+	"type": ["object"],
+	"required": ["nodes"],
+	"properties": {
+		"nodes": {
+			"type": "object",
+			"additionalProperties": {
+				"$ref": "#/$defs/node"
+			}
+		}
+	},
+	"$defs": {
+		"node": {
+			"type": ["object"],
+			"required": ["deprecated", "types"],
+			"properties": {
+				"title": {
+					"$ref": "#/$defs/text"
+				},
+				"description": {
+					"$ref": "#/$defs/text"
+				},
+				"examples": {
+					"type": "array",
+					"items": true
+				},
+				"deprecated": { "type": "boolean" },
+				"types": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"never",
+							"any",
+							"null",
+							"boolean",
+							"integer",
+							"number",
+							"string",
+							"tuple",
+							"array",
+							"object",
+							"record"
+						]
+					}
+				},
+				"validation": {
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/validation-union"
+					}
+				},
+				"itemTypeNodeIds": {
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/node-reference"
+					}
+				},
+				"itemTypeNodeId": {
+					"$ref": "#/$defs/node-reference"
+				},
+				"propertyTypeNodeIds": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/$defs/node-reference"
+					}
+				},
+				"propertyTypeNodeId": {
+					"$ref": "#/$defs/node-reference"
+				},
+				"superNodeId": { "$ref": "#/$defs/node-reference" },
+				"oneOf": {
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/node-reference"
+					}
+				},
+				"anyOf": {
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/node-reference"
+					}
+				},
+				"allOf": {
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/node-reference"
+					}
+				}
+			}
+		},
+		"node-reference": {
+			"type": "string",
+			"minimumLength": 1
+		},
+		"validation-union": {
+			"oneOf": [
+				{ "$ref": "#/$defs/boolean-validation" },
+				{ "$ref": "#/$defs/integer-validation" },
+				{ "$ref": "#/$defs/number-validation" },
+				{ "$ref": "#/$defs/integer-validation" },
+				{ "$ref": "#/$defs/string-validation" },
+				{ "$ref": "#/$defs/array-validation" },
+				{ "$ref": "#/$defs/record-validation" }
+			]
+		},
+		"boolean-validation": {
+			"type": "object",
+			"required": ["type"],
+			"properties": {
+				"type": {
+					"type": "string",
+					"const": "boolean"
+				},
+				"options": {
+					"type": "array",
+					"items": {
+						"type": "boolean"
+					}
+				}
+			}
+		},
+		"integer-validation": {
+			"type": "object",
+			"required": ["type"],
+			"properties": {
+				"type": {
+					"type": "string",
+					"const": "integer"
+				},
+				"options": {
+					"type": "array",
+					"items": {
+						"type": "integer"
+					}
+				},
+				"minimumInclusive": {
+					"type": "integer"
+				},
+				"minimumExclusive": {
+					"type": "integer"
+				},
+				"maximumInclusive": {
+					"type": "integer"
+				},
+				"maximumExclusive": {
+					"type": "integer"
+				},
+				"multipleOf": {
+					"type": "integer"
+				}
+			}
+		},
+		"number-validation": {
+			"type": "object",
+			"required": ["type"],
+			"properties": {
+				"type": {
+					"type": "string",
+					"const": "number"
+				},
+				"options": {
+					"type": "array",
+					"items": {
+						"type": "number"
+					}
+				},
+				"minimumInclusive": {
+					"type": "number"
+				},
+				"minimumExclusive": {
+					"type": "number"
+				},
+				"maximumInclusive": {
+					"type": "number"
+				},
+				"maximumExclusive": {
+					"type": "number"
+				},
+				"multipleOf": {
+					"type": "number"
+				}
+			}
+		},
+		"string-validation": {
+			"type": "object",
+			"required": ["type"],
+			"properties": {
+				"type": {
+					"type": "string",
+					"const": "string"
+				},
+				"options": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"minimumLength": {
+					"type": "integer",
+					"minimumInclusive": 0
+				},
+				"maximumLength": {
+					"type": "integer"
+				},
+				"valuePattern": {
+					"type": "string"
+				}
+			}
+		},
+		"array-validation": {
+			"type": "object",
+			"required": ["type"],
+			"properties": {
+				"type": {
+					"type": "string",
+					"const": "array"
+				},
+				"minimumItems": {
+					"$ref": "#/$defs/minimum-boundary"
+				},
+				"maximumItems": {
+					"$ref": "#/$defs/maximum-boundary"
+				},
+				"uniqueItems": {
+					"type": "boolean"
+				}
+			}
+		},
+		"record-validation": {
+			"type": "object",
+			"required": ["type"],
+			"properties": {
+				"type": {
+					"type": "string",
+					"const": "record"
+				},
+				"required": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"uniqueItems": true
+				},
+				"minimumProperties": {
+					"$ref": "#/$defs/minimum-boundary"
+				},
+				"maximumProperties": {
+					"$ref": "#/$defs/maximum-boundary"
+				}
+			}
+		},
+		"minimum-boundary": {
+			"type": "integer",
+			"minimumInclusive": 0
+		},
+		"maximum-boundary": {
+			"type": "integer",
+			"minimumInclusive": 0
+		},
+		"text": {
+			"type": "string",
+			"minimumLength": 1
+		}
+	}
+}
