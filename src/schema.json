@@ -15,7 +15,7 @@
 	"$defs": {
 		"node": {
 			"type": ["object"],
-			"required": ["deprecated", "types"],
+			"required": ["deprecated", "types", "validators"],
 			"properties": {
 				"title": {
 					"$ref": "#/$defs/text"
@@ -47,10 +47,10 @@
 						]
 					}
 				},
-				"validation": {
+				"validators": {
 					"type": "array",
 					"items": {
-						"$ref": "#/$defs/validation-union"
+						"$ref": "#/$defs/validator-union"
 					}
 				},
 				"itemTypeNodeIds": {
@@ -96,18 +96,18 @@
 			"type": "string",
 			"minimumLength": 1
 		},
-		"validation-union": {
+		"validator-union": {
 			"oneOf": [
-				{ "$ref": "#/$defs/boolean-validation" },
-				{ "$ref": "#/$defs/integer-validation" },
-				{ "$ref": "#/$defs/number-validation" },
-				{ "$ref": "#/$defs/integer-validation" },
-				{ "$ref": "#/$defs/string-validation" },
-				{ "$ref": "#/$defs/array-validation" },
-				{ "$ref": "#/$defs/record-validation" }
+				{ "$ref": "#/$defs/boolean-validator" },
+				{ "$ref": "#/$defs/integer-validator" },
+				{ "$ref": "#/$defs/number-validator" },
+				{ "$ref": "#/$defs/integer-validator" },
+				{ "$ref": "#/$defs/string-validator" },
+				{ "$ref": "#/$defs/array-validator" },
+				{ "$ref": "#/$defs/record-validator" }
 			]
 		},
-		"boolean-validation": {
+		"boolean-validator": {
 			"type": "object",
 			"required": ["type"],
 			"properties": {
@@ -123,7 +123,7 @@
 				}
 			}
 		},
-		"integer-validation": {
+		"integer-validator": {
 			"type": "object",
 			"required": ["type"],
 			"properties": {
@@ -154,7 +154,7 @@
 				}
 			}
 		},
-		"number-validation": {
+		"number-validator": {
 			"type": "object",
 			"required": ["type"],
 			"properties": {
@@ -185,7 +185,7 @@
 				}
 			}
 		},
-		"string-validation": {
+		"string-validator": {
 			"type": "object",
 			"required": ["type"],
 			"properties": {
@@ -211,7 +211,7 @@
 				}
 			}
 		},
-		"array-validation": {
+		"array-validator": {
 			"type": "object",
 			"required": ["type"],
 			"properties": {
@@ -230,7 +230,7 @@
 				}
 			}
 		},
-		"record-validation": {
+		"record-validator": {
 			"type": "object",
 			"required": ["type"],
 			"properties": {
