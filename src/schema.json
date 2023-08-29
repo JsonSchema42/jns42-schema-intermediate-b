@@ -90,14 +90,16 @@
 						"$ref": "#/$defs/node-reference"
 					}
 				},
-				"ifThen": {
+				"ifThenElse": {
 					"type": "object",
-					"required": ["if"],
+					"required": ["if", "then"],
 					"properties": {
 						"if": { "$ref": "#/$defs/node-reference" },
-						"then": { "$ref": "#/$defs/node-reference" }
+						"then": { "$ref": "#/$defs/node-reference" },
+						"else": { "$ref": "#/$defs/node-reference" }
 					}
-				}
+				},
+				"not": { "$ref": "#/$defs/node-reference" }
 			}
 		},
 		"node-reference": {
