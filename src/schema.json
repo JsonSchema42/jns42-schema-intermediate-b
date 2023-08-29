@@ -43,7 +43,7 @@
 							"tuple",
 							"array",
 							"object",
-							"record"
+							"map"
 						]
 					}
 				},
@@ -89,6 +89,14 @@
 					"items": {
 						"$ref": "#/$defs/node-reference"
 					}
+				},
+				"ifThen": {
+					"type": "object",
+					"required": ["if"],
+					"properties": {
+						"if": { "$ref": "#/$defs/node-reference" },
+						"then": { "$ref": "#/$defs/node-reference" }
+					}
 				}
 			}
 		},
@@ -104,7 +112,7 @@
 				{ "$ref": "#/$defs/integer-validator" },
 				{ "$ref": "#/$defs/string-validator" },
 				{ "$ref": "#/$defs/array-validator" },
-				{ "$ref": "#/$defs/record-validator" }
+				{ "$ref": "#/$defs/map-validator" }
 			]
 		},
 		"boolean-validator": {
@@ -230,13 +238,13 @@
 				}
 			}
 		},
-		"record-validator": {
+		"map-validator": {
 			"type": "object",
 			"required": ["type"],
 			"properties": {
 				"type": {
 					"type": "string",
-					"const": "record"
+					"const": "map"
 				},
 				"required": {
 					"type": "array",
@@ -250,6 +258,9 @@
 				},
 				"maximumProperties": {
 					"$ref": "#/$defs/maximum-boundary"
+				},
+				"keyPattern": {
+					"type": "string"
 				}
 			}
 		},
