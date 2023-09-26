@@ -27,6 +27,9 @@
 					"type": "array",
 					"items": true
 				},
+				"format": {
+					"$ref": "#/$defs/text"
+				},
 				"deprecated": { "type": "boolean" },
 				"types": {
 					"type": "array",
@@ -230,10 +233,10 @@
 					"const": "array"
 				},
 				"minimumItems": {
-					"$ref": "#/$defs/minimum-boundary"
+					"$ref": "#/$defs/amount"
 				},
 				"maximumItems": {
-					"$ref": "#/$defs/maximum-boundary"
+					"$ref": "#/$defs/amount"
 				},
 				"uniqueItems": {
 					"type": "boolean"
@@ -256,21 +259,17 @@
 					"uniqueItems": true
 				},
 				"minimumProperties": {
-					"$ref": "#/$defs/minimum-boundary"
+					"$ref": "#/$defs/amount"
 				},
 				"maximumProperties": {
-					"$ref": "#/$defs/maximum-boundary"
+					"$ref": "#/$defs/amount"
 				},
 				"keyPattern": {
 					"type": "string"
 				}
 			}
 		},
-		"minimum-boundary": {
-			"type": "integer",
-			"minimumInclusive": 0
-		},
-		"maximum-boundary": {
+		"amount": {
 			"type": "integer",
 			"minimumInclusive": 0
 		},
