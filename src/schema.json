@@ -95,7 +95,7 @@
 				},
 				"ifThenElse": {
 					"type": "object",
-					"required": ["if", "then"],
+					"required": ["if"],
 					"properties": {
 						"if": { "$ref": "#/$defs/node-reference" },
 						"then": { "$ref": "#/$defs/node-reference" },
