@@ -15,7 +15,7 @@
 	"$defs": {
 		"node": {
 			"type": ["object"],
-			"required": ["deprecated", "types", "validators"],
+			"required": ["deprecated", "types", "assertions", "applicators"],
 			"properties": {
 				"title": {
 					"$ref": "#/$defs/text"
@@ -43,91 +43,65 @@
 							"integer",
 							"number",
 							"string",
-							"tuple",
 							"array",
-							"object",
 							"map"
 						]
 					}
 				},
-				"validators": {
-					"type": "array",
-					"items": {
-						"$ref": "#/$defs/validator-union"
-					}
-				},
-				"itemTypeNodeIds": {
-					"type": "array",
-					"items": {
-						"$ref": "#/$defs/node-reference"
-					}
-				},
-				"itemTypeNodeId": {
-					"$ref": "#/$defs/node-reference"
-				},
-				"propertyTypeNodeIds": {
+				"assertions": {
 					"type": "object",
-					"additionalProperties": {
-						"$ref": "#/$defs/node-reference"
-					}
-				},
-				"propertyTypeNodeId": {
-					"$ref": "#/$defs/node-reference"
-				},
-				"superNodeId": { "$ref": "#/$defs/node-reference" },
-				"oneOf": {
-					"type": "array",
-					"items": {
-						"$ref": "#/$defs/node-reference"
-					}
-				},
-				"anyOf": {
-					"type": "array",
-					"items": {
-						"$ref": "#/$defs/node-reference"
-					}
-				},
-				"allOf": {
-					"type": "array",
-					"items": {
-						"$ref": "#/$defs/node-reference"
-					}
-				},
-				"ifThenElse": {
-					"type": "object",
-					"required": ["if"],
 					"properties": {
-						"if": { "$ref": "#/$defs/node-reference" },
-						"then": { "$ref": "#/$defs/node-reference" },
-						"else": { "$ref": "#/$defs/node-reference" }
+						"boolean": { "$ref": "#/$defs/boolean-assertion" },
+						"integer": { "$ref": "#/$defs/integer-assertion" },
+						"number": { "$ref": "#/$defs/number-assertion" },
+						"string": { "$ref": "#/$defs/string-assertion" },
+						"array": { "$ref": "#/$defs/array-assertion" },
+						"map": { "$ref": "#/$defs/map-assertion" }
 					}
 				},
-				"not": { "$ref": "#/$defs/node-reference" }
+				"applicators": {
+					"type": "object",
+					"properties": {
+						"superNodeId": { "$ref": "#/$defs/node-reference" },
+						"oneOf": {
+							"type": "array",
+							"items": {
+								"$ref": "#/$defs/node-reference"
+							}
+						},
+						"anyOf": {
+							"type": "array",
+							"items": {
+								"$ref": "#/$defs/node-reference"
+							}
+						},
+						"allOf": {
+							"type": "array",
+							"items": {
+								"$ref": "#/$defs/node-reference"
+							}
+						},
+						"ifThenElse": {
+							"type": "object",
+							"required": ["if"],
+							"properties": {
+								"if": { "$ref": "#/$defs/node-reference" },
+								"then": { "$ref": "#/$defs/node-reference" },
+								"else": { "$ref": "#/$defs/node-reference" }
+							}
+						},
+						"not": { "$ref": "#/$defs/node-reference" }
+					}
+				}
 			}
 		},
 		"node-reference": {
 			"type": "string",
 			"minimumLength": 1
 		},
-		"validator-union": {
-			"oneOf": [
-				{ "$ref": "#/$defs/boolean-validator" },
-				{ "$ref": "#/$defs/integer-validator" },
-				{ "$ref": "#/$defs/number-validator" },
-				{ "$ref": "#/$defs/integer-validator" },
-				{ "$ref": "#/$defs/string-validator" },
-				{ "$ref": "#/$defs/array-validator" },
-				{ "$ref": "#/$defs/map-validator" }
-			]
-		},
-		"boolean-validator": {
+		"boolean-assertion": {
 			"type": "object",
-			"required": ["type"],
 			"properties": {
-				"type": {
-					"type": "string",
-					"const": "boolean"
-				},
 				"options": {
 					"type": "array",
 					"items": {
@@ -136,14 +110,9 @@
 				}
 			}
 		},
-		"integer-validator": {
+		"integer-assertion": {
 			"type": "object",
-			"required": ["type"],
 			"properties": {
-				"type": {
-					"type": "string",
-					"const": "integer"
-				},
 				"options": {
 					"type": "array",
 					"items": {
@@ -167,14 +136,9 @@
 				}
 			}
 		},
-		"number-validator": {
+		"number-assertion": {
 			"type": "object",
-			"required": ["type"],
 			"properties": {
-				"type": {
-					"type": "string",
-					"const": "number"
-				},
 				"options": {
 					"type": "array",
 					"items": {
@@ -198,14 +162,9 @@
 				}
 			}
 		},
-		"string-validator": {
+		"string-assertion": {
 			"type": "object",
-			"required": ["type"],
 			"properties": {
-				"type": {
-					"type": "string",
-					"const": "string"
-				},
 				"options": {
 					"type": "array",
 					"items": {
@@ -224,14 +183,9 @@
 				}
 			}
 		},
-		"array-validator": {
+		"array-assertion": {
 			"type": "object",
-			"required": ["type"],
 			"properties": {
-				"type": {
-					"type": "string",
-					"const": "array"
-				},
 				"minimumItems": {
 					"$ref": "#/$defs/amount"
 				},
@@ -240,17 +194,21 @@
 				},
 				"uniqueItems": {
 					"type": "boolean"
+				},
+				"itemTypeNodeIds": {
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/node-reference"
+					}
+				},
+				"itemTypeNodeId": {
+					"$ref": "#/$defs/node-reference"
 				}
 			}
 		},
-		"map-validator": {
+		"map-assertion": {
 			"type": "object",
-			"required": ["type"],
 			"properties": {
-				"type": {
-					"type": "string",
-					"const": "map"
-				},
 				"required": {
 					"type": "array",
 					"items": {
@@ -266,6 +224,15 @@
 				},
 				"keyPattern": {
 					"type": "string"
+				},
+				"propertyTypeNodeIds": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/$defs/node-reference"
+					}
+				},
+				"propertyTypeNodeId": {
+					"$ref": "#/$defs/node-reference"
 				}
 			}
 		},
