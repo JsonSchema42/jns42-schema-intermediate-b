@@ -1,36 +1,29 @@
-$schema: 'https://json-schema.org/draft/2020-12/schema'
-$id: 'https://schema.JsonSchema42.org/jns42-intermediate-b/schema.json'
-title: 'JsonSchema42 intermediate schema'
-type:
-  - object
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://schema.JsonSchema42.org/jns42-intermediate-b/schema.json"
+title: "JsonSchema42 intermediate schema"
+type: object
 required:
   - nodes
 properties:
   nodes:
     type: object
-    additionalProperties:
-      $ref: '#/$defs/node'
+    additionalProperties: { $ref: "#/$defs/node" }
 $defs:
   node:
-    type:
-      - object
+    type: object
     required:
       - deprecated
       - types
       - assertions
       - applicators
     properties:
-      title:
-        $ref: '#/$defs/text'
-      description:
-        $ref: '#/$defs/text'
+      title: { $ref: "#/$defs/non-empty-string-value" }
+      description: { $ref: "#/$defs/non-empty-string-value" }
       examples:
         type: array
         items: true
-      format:
-        $ref: '#/$defs/text'
-      deprecated:
-        type: boolean
+      format: { $ref: "#/$defs/non-empty-string-value" }
+      deprecated: { $ref: "#/$defs/boolean-value" }
       types:
         type: array
         items:
@@ -38,7 +31,7 @@ $defs:
           enum:
             - never
             - any
-            - 'null'
+            - "null"
             - boolean
             - integer
             - number
@@ -48,144 +41,113 @@ $defs:
       assertions:
         type: object
         properties:
-          boolean:
-            $ref: '#/$defs/boolean-assertion'
-          integer:
-            $ref: '#/$defs/integer-assertion'
-          number:
-            $ref: '#/$defs/number-assertion'
-          string:
-            $ref: '#/$defs/string-assertion'
-          array:
-            $ref: '#/$defs/array-assertion'
-          map:
-            $ref: '#/$defs/map-assertion'
+          boolean: { $ref: "#/$defs/boolean-assertion" }
+          integer: { $ref: "#/$defs/integer-assertion" }
+          number: { $ref: "#/$defs/number-assertion" }
+          string: { $ref: "#/$defs/string-assertion" }
+          array: { $ref: "#/$defs/array-assertion" }
+          map: { $ref: "#/$defs/map-assertion" }
       applicators:
         type: object
         properties:
-          superNodeId:
-            $ref: '#/$defs/node-reference'
+          superNodeId: { $ref: "#/$defs/node-reference" }
           oneOf:
             type: array
-            items:
-              $ref: '#/$defs/node-reference'
+            items: { $ref: "#/$defs/node-reference" }
           anyOf:
             type: array
-            items:
-              $ref: '#/$defs/node-reference'
+            items: { $ref: "#/$defs/node-reference" }
           allOf:
             type: array
-            items:
-              $ref: '#/$defs/node-reference'
+            items: { $ref: "#/$defs/node-reference" }
           ifThenElse:
             type: object
             required:
               - if
             properties:
-              if:
-                $ref: '#/$defs/node-reference'
-              then:
-                $ref: '#/$defs/node-reference'
-              else:
-                $ref: '#/$defs/node-reference'
-          not:
-            $ref: '#/$defs/node-reference'
-  node-reference:
-    type: string
-    minimumLength: 1
+              if: { $ref: "#/$defs/node-reference" }
+              then: { $ref: "#/$defs/node-reference" }
+              else: { $ref: "#/$defs/node-reference" }
+          not: { $ref: "#/$defs/node-reference" }
+
   boolean-assertion:
     type: object
     properties:
       options:
         type: array
-        items:
-          type: boolean
+        items: { $ref: "#/$defs/boolean-value" }
   integer-assertion:
     type: object
     properties:
       options:
         type: array
         items:
-          type: integer
-      minimumInclusive:
-        type: integer
-      minimumExclusive:
-        type: integer
-      maximumInclusive:
-        type: integer
-      maximumExclusive:
-        type: integer
-      multipleOf:
-        type: integer
+          type: { $ref: "#/$defs/integer-value" }
+      minimumInclusive: { $ref: "#/$defs/integer-value" }
+      minimumExclusive: { $ref: "#/$defs/integer-value" }
+      maximumInclusive: { $ref: "#/$defs/integer-value" }
+      maximumExclusive: { $ref: "#/$defs/integer-value" }
+      multipleOf: { $ref: "#/$defs/integer-value" }
   number-assertion:
     type: object
     properties:
       options:
         type: array
-        items:
-          type: number
-      minimumInclusive:
-        type: number
-      minimumExclusive:
-        type: number
-      maximumInclusive:
-        type: number
-      maximumExclusive:
-        type: number
-      multipleOf:
-        type: number
+        items: { $ref: "#/$defs/number-value" }
+      minimumInclusive: { $ref: "#/$defs/number-value" }
+      minimumExclusive: { $ref: "#/$defs/number-value" }
+      maximumInclusive: { $ref: "#/$defs/number-value" }
+      maximumExclusive: { $ref: "#/$defs/number-value" }
+      multipleOf: { $ref: "#/$defs/number-value" }
   string-assertion:
     type: object
     properties:
       options:
         type: array
-        items:
-          type: string
-      minimumLength:
-        type: integer
-        minimumInclusive: 0
-      maximumLength:
-        type: integer
-      valuePattern:
-        type: string
+        items: { $ref: "#/$defs/string-value" }
+      minimumLength: { $ref: "#/$defs/amount" }
+      maximumLength: { $ref: "#/$defs/amount" }
+      valuePattern: { $ref: "#/$defs/non-empty-string-value" }
   array-assertion:
     type: object
     properties:
-      minimumItems:
-        $ref: '#/$defs/amount'
-      maximumItems:
-        $ref: '#/$defs/amount'
+      minimumItems: { $ref: "#/$defs/amount" }
+      maximumItems: { $ref: "#/$defs/amount" }
       uniqueItems:
         type: boolean
       itemTypeNodeIds:
         type: array
-        items:
-          $ref: '#/$defs/node-reference'
-      itemTypeNodeId:
-        $ref: '#/$defs/node-reference'
+        items: { $ref: "#/$defs/node-reference" }
+      itemTypeNodeId: { $ref: "#/$defs/node-reference" }
   map-assertion:
     type: object
     properties:
       required:
         type: array
-        items:
-          type: string
+        items: { $ref: "#/$defs/string-value" }
         uniqueItems: true
-      minimumProperties:
-        $ref: '#/$defs/amount'
-      maximumProperties:
-        $ref: '#/$defs/amount'
-      keyPattern:
-        type: string
+      minimumProperties: { $ref: "#/$defs/amount" }
+      maximumProperties: { $ref: "#/$defs/amount" }
+      keyPattern: { $ref: "#/$defs/non-empty-string-value" }
       propertyTypeNodeIds:
         type: object
-        additionalProperties:
-          $ref: '#/$defs/node-reference'
-      propertyTypeNodeId:
-        $ref: '#/$defs/node-reference'
+        additionalProperties: { $ref: "#/$defs/node-reference" }
+      propertyTypeNodeId: { $ref: "#/$defs/node-reference" }
+
+  node-reference:
+    type: string
+    minimumLength: 1
+  integer-value:
+    type: integer
+  number-value:
+    type: integer
+  boolean-value:
+    type: boolean
+  string-value:
+    type: string
+  non-empty-string-value:
+    type: string
+    minimumLength: 1
   amount:
     type: integer
     minimumInclusive: 0
-  text:
-    type: string
-    minimumLength: 1
