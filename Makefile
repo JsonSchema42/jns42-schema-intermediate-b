@@ -14,6 +14,7 @@ rebuild: clean build
 build: \
 	out/static/version.txt \
 	out/static/schema.json \
+	out/static/schema.yaml \
 	out/schema \
 
 clean:
@@ -23,9 +24,13 @@ out/static/version.txt:
 	@mkdir --parents $(@D)
 	echo $(VERSION) > $@
 
-out/static/%.json: src/%.json
+out/static/%: src/%
 	@mkdir --parents $(@D)
 	cp $< $@
+
+out/static/%.json: out/static/%.yaml
+	@mkdir --parents $(@D)
+	npx yaml2json --pretty $< > $@
 
 out/%: out/static/%.json
 	npx jns42-generator package file://${PWD}/$< \

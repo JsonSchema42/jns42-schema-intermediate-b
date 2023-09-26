@@ -1,0 +1,191 @@
+$schema: 'https://json-schema.org/draft/2020-12/schema'
+$id: 'https://schema.JsonSchema42.org/jns42-intermediate-b/schema.json'
+title: 'JsonSchema42 intermediate schema'
+type:
+  - object
+required:
+  - nodes
+properties:
+  nodes:
+    type: object
+    additionalProperties:
+      $ref: '#/$defs/node'
+$defs:
+  node:
+    type:
+      - object
+    required:
+      - deprecated
+      - types
+      - assertions
+      - applicators
+    properties:
+      title:
+        $ref: '#/$defs/text'
+      description:
+        $ref: '#/$defs/text'
+      examples:
+        type: array
+        items: true
+      format:
+        $ref: '#/$defs/text'
+      deprecated:
+        type: boolean
+      types:
+        type: array
+        items:
+          type: string
+          enum:
+            - never
+            - any
+            - 'null'
+            - boolean
+            - integer
+            - number
+            - string
+            - array
+            - map
+      assertions:
+        type: object
+        properties:
+          boolean:
+            $ref: '#/$defs/boolean-assertion'
+          integer:
+            $ref: '#/$defs/integer-assertion'
+          number:
+            $ref: '#/$defs/number-assertion'
+          string:
+            $ref: '#/$defs/string-assertion'
+          array:
+            $ref: '#/$defs/array-assertion'
+          map:
+            $ref: '#/$defs/map-assertion'
+      applicators:
+        type: object
+        properties:
+          superNodeId:
+            $ref: '#/$defs/node-reference'
+          oneOf:
+            type: array
+            items:
+              $ref: '#/$defs/node-reference'
+          anyOf:
+            type: array
+            items:
+              $ref: '#/$defs/node-reference'
+          allOf:
+            type: array
+            items:
+              $ref: '#/$defs/node-reference'
+          ifThenElse:
+            type: object
+            required:
+              - if
+            properties:
+              if:
+                $ref: '#/$defs/node-reference'
+              then:
+                $ref: '#/$defs/node-reference'
+              else:
+                $ref: '#/$defs/node-reference'
+          not:
+            $ref: '#/$defs/node-reference'
+  node-reference:
+    type: string
+    minimumLength: 1
+  boolean-assertion:
+    type: object
+    properties:
+      options:
+        type: array
+        items:
+          type: boolean
+  integer-assertion:
+    type: object
+    properties:
+      options:
+        type: array
+        items:
+          type: integer
+      minimumInclusive:
+        type: integer
+      minimumExclusive:
+        type: integer
+      maximumInclusive:
+        type: integer
+      maximumExclusive:
+        type: integer
+      multipleOf:
+        type: integer
+  number-assertion:
+    type: object
+    properties:
+      options:
+        type: array
+        items:
+          type: number
+      minimumInclusive:
+        type: number
+      minimumExclusive:
+        type: number
+      maximumInclusive:
+        type: number
+      maximumExclusive:
+        type: number
+      multipleOf:
+        type: number
+  string-assertion:
+    type: object
+    properties:
+      options:
+        type: array
+        items:
+          type: string
+      minimumLength:
+        type: integer
+        minimumInclusive: 0
+      maximumLength:
+        type: integer
+      valuePattern:
+        type: string
+  array-assertion:
+    type: object
+    properties:
+      minimumItems:
+        $ref: '#/$defs/amount'
+      maximumItems:
+        $ref: '#/$defs/amount'
+      uniqueItems:
+        type: boolean
+      itemTypeNodeIds:
+        type: array
+        items:
+          $ref: '#/$defs/node-reference'
+      itemTypeNodeId:
+        $ref: '#/$defs/node-reference'
+  map-assertion:
+    type: object
+    properties:
+      required:
+        type: array
+        items:
+          type: string
+        uniqueItems: true
+      minimumProperties:
+        $ref: '#/$defs/amount'
+      maximumProperties:
+        $ref: '#/$defs/amount'
+      keyPattern:
+        type: string
+      propertyTypeNodeIds:
+        type: object
+        additionalProperties:
+          $ref: '#/$defs/node-reference'
+      propertyTypeNodeId:
+        $ref: '#/$defs/node-reference'
+  amount:
+    type: integer
+    minimumInclusive: 0
+  text:
+    type: string
+    minimumLength: 1
