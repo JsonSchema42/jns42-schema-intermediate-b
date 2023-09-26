@@ -13,6 +13,7 @@ rebuild: clean build
 
 build: \
 	out/static/version.txt \
+	out/static/schema.json \
 	out/schema \
 
 clean:
@@ -22,7 +23,11 @@ out/static/version.txt:
 	@mkdir --parents $(@D)
 	echo $(VERSION) > $@
 
-out/%: src/%.json
+out/static/%.json: src/%.json
+	@mkdir --parents $(@D)
+	cp $< $@
+
+out/%: out/static/%.json
 	npx jns42-generator package file://${PWD}/$< \
 		--package-directory $@ \
 		--package-name $(PACKAGE_NAME) \
