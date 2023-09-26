@@ -38,6 +38,10 @@ $defs:
             - string
             - array
             - map
+
+      # Assertions, per type it is possible that an assertion for a different
+      # type is present here, that validator may be used when this schema is
+      # used as an applicator
       assertions:
         type: object
         properties:
@@ -47,6 +51,8 @@ $defs:
           string: { $ref: "#/$defs/string-assertion" }
           array: { $ref: "#/$defs/array-assertion" }
           map: { $ref: "#/$defs/map-assertion" }
+
+      # Applicators apply other schemas to this one
       applicators:
         type: object
         properties:
