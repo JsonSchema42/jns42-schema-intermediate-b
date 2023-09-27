@@ -127,7 +127,7 @@ $defs:
       minimumLength: { $ref: "#/$defs/amount" }
       maximumLength: { $ref: "#/$defs/amount" }
       valuePattern: { $ref: "#/$defs/non-empty-string-value" }
-      format: { $ref: "#/$defs/non-empty-string-value" }
+      valueFormat: { $ref: "#/$defs/non-empty-string-value" }
   array-assertion:
     type: object
     properties:
