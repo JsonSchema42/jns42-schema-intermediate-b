@@ -148,11 +148,13 @@ $defs:
         uniqueItems: true
       minimumProperties: { $ref: "#/$defs/amount" }
       maximumProperties: { $ref: "#/$defs/amount" }
-      keyPattern: { $ref: "#/$defs/non-empty-string-value" }
       propertyTypeNodeIds:
         type: object
         additionalProperties: { $ref: "#/$defs/node-reference" }
       propertyTypeNodeId: { $ref: "#/$defs/node-reference" }
+      patternPropertyTypeNodeIds:
+        type: object
+        additionalProperties: { $ref: "#/$defs/node-reference" }
 
   node-reference:
     type: string
