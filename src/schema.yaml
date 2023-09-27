@@ -155,6 +155,7 @@ $defs:
       patternPropertyTypeNodeIds:
         type: object
         additionalProperties: { $ref: "#/$defs/node-reference" }
+      propertyNameTypeNodeId: { $ref: "#/$defs/node-reference" }
 
   node-reference:
     type: string
