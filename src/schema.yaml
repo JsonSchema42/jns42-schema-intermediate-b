@@ -69,7 +69,7 @@ $defs:
       Applicators apply other schemas to this one
     type: object
     properties:
-      superNodeId: { $ref: "#/$defs/node-reference" }
+      reference: { $ref: "#/$defs/node-reference" }
       oneOf:
         type: array
         items: { $ref: "#/$defs/node-reference" }
@@ -79,15 +79,26 @@ $defs:
       allOf:
         type: array
         items: { $ref: "#/$defs/node-reference" }
-      ifThenElse:
-        type: object
-        required:
-          - if
-        properties:
-          if: { $ref: "#/$defs/node-reference" }
-          then: { $ref: "#/$defs/node-reference" }
-          else: { $ref: "#/$defs/node-reference" }
+      if: { $ref: "#/$defs/node-reference" }
+      then: { $ref: "#/$defs/node-reference" }
+      else: { $ref: "#/$defs/node-reference" }
       not: { $ref: "#/$defs/node-reference" }
+      dependentSchemas:
+        type: object
+        additionalProperties: { $ref: "#/$defs/node-reference" }
+      objectProperties:
+        type: object
+        additionalProperties: { $ref: "#/$defs/node-reference" }
+      mapProperties: { $ref: "#/$defs/node-reference" }
+      patternProperties:
+        type: object
+        additionalProperties: { $ref: "#/$defs/node-reference" }
+      propertyNames: { $ref: "#/$defs/node-reference" }
+      tupleItems:
+        type: array
+        items: { $ref: "#/$defs/node-reference" }
+      arrayItems: { $ref: "#/$defs/node-reference" }
+      contains: { $ref: "#/$defs/node-reference" }
 
   boolean-assertion:
     type: object
@@ -135,10 +146,6 @@ $defs:
       maximumItems: { $ref: "#/$defs/amount" }
       uniqueItems:
         type: boolean
-      itemTypeNodeIds:
-        type: array
-        items: { $ref: "#/$defs/node-reference" }
-      itemTypeNodeId: { $ref: "#/$defs/node-reference" }
   map-assertion:
     type: object
     properties:
@@ -148,14 +155,6 @@ $defs:
         uniqueItems: true
       minimumProperties: { $ref: "#/$defs/amount" }
       maximumProperties: { $ref: "#/$defs/amount" }
-      propertyTypeNodeIds:
-        type: object
-        additionalProperties: { $ref: "#/$defs/node-reference" }
-      propertyTypeNodeId: { $ref: "#/$defs/node-reference" }
-      patternPropertyTypeNodeIds:
-        type: object
-        additionalProperties: { $ref: "#/$defs/node-reference" }
-      propertyNameTypeNodeId: { $ref: "#/$defs/node-reference" }
 
   node-reference:
     type: string
