@@ -111,8 +111,7 @@ $defs:
     properties:
       options:
         type: array
-        items:
-          type: { $ref: "#/$defs/integer-value" }
+        items: { $ref: "#/$defs/integer-value" }
       minimumInclusive: { $ref: "#/$defs/integer-value" }
       minimumExclusive: { $ref: "#/$defs/integer-value" }
       maximumInclusive: { $ref: "#/$defs/integer-value" }
@@ -162,7 +161,7 @@ $defs:
   integer-value:
     type: integer
   number-value:
-    type: integer
+    type: number
   boolean-value:
     type: boolean
   string-value:
