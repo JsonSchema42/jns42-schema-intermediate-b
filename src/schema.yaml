@@ -21,6 +21,7 @@ $defs:
       - assertions
       - applicators
     properties:
+      context: { $ref: "#/$defs/node-reference" }
       metadata: { $ref: "#/$defs/metadata-section" }
       types: { $ref: "#/$defs/types-section" }
       assertions: { $ref: "#/$defs/assertions-section" }
