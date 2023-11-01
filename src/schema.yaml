@@ -4,12 +4,12 @@ title: "JsonSchema42 intermediate schema"
 type: object
 required:
   - $schema
-  - nodes
+  - schemas
 properties:
   $schema:
     "type": "string"
     "const": "https://schema.JsonSchema42.org/jns42-intermediate-b/schema.json"
-  nodes:
+  schemas:
     type: object
     additionalProperties: { $ref: "#/$defs/node" }
 $defs:
